@@ -1,9 +1,10 @@
 from tkinter import Tk, Label, Entry, Button, Frame, Toplevel
+from Cadastro import Cadastro
 
-class Login:
-    def __init__(self):
+class TelaInicialAluno:
+    def __init__(self,aluno):
         self.root = Tk()
-        self.login_entries = []
+        self.aluno = aluno
         self.screen()
         self.create_widgets()
         self.root.mainloop()
@@ -23,7 +24,7 @@ class Login:
         y_pos = (altura_tela - altura_janela) // 2
 
         self.root.geometry(f"{largura_janela}x{altura_janela}+{x_pos}+{y_pos}")
-        self.root.title("Tela de Login")
+        self.root.title("Tela de Início de " + self.aluno.nome)
 
         self.root.configure(bg=cor_de_fundo)
 
@@ -34,7 +35,7 @@ class Login:
         frame = Frame(self.root, bg=cor_de_fundo)
         frame.pack(pady=20)
 
-        Label(frame, text="Tela de Login", font=("Helvetica", 16), bg=cor_de_fundo).grid(row=0, column=0, columnspan=2, pady=10)
+        Label(frame, text="Tela de Início de " + self.aluno.nome, font=("Helvetica", 16), bg=cor_de_fundo).grid(row=0, column=0, columnspan=2, pady=10)
 
         Label(frame, text="Email:", font=fonte, bg=cor_de_fundo).grid(row=1, column=0, pady=5)
         self.login_entries.append(Entry(frame, font=fonte))
@@ -44,8 +45,17 @@ class Login:
         self.login_entries.append(Entry(frame, font=fonte, show="*"))
         self.login_entries[1].grid(row=2, column=1, pady=5)
 
-        login_button = Button(frame, text="Login", command=self.login, bg="#4CAF50", fg="white", font=fonte)
-        login_button.grid(row=3, column=0, columnspan=2, pady=10)
+        Treino_button = Button(frame, text="Login", command=self.login, bg="#4CAF50", fg="white", font=fonte)
+        Treino_button.grid(row=3, column=0, columnspan=2, pady=10)
+
+        VerPerfil_button = Button(frame, text="Login", command=self.login, bg="#4CAF50", fg="white", font=fonte)
+        VerPerfil_button.grid(row=3, column=0, columnspan=2, pady=10)
+
+        VerPersonal_button = Button(frame, text="Login", command=self.login, bg="#4CAF50", fg="white", font=fonte)
+        VerPersonal_button.grid(row=3, column=0, columnspan=2, pady=10)
+
+        VerFichaMedica_button = Button(frame, text="Login", command=self.login, bg="#4CAF50", fg="white", font=fonte)
+        VerFichaMedica_button.grid(row=3, column=0, columnspan=2, pady=10)
 
         texto_cadastrar = Label(frame, text="Cadastrar", font=fonte, bg=cor_de_fundo, fg="blue", cursor="hand2")
         texto_cadastrar.grid(row=4, column=0, columnspan=2, pady=10)
