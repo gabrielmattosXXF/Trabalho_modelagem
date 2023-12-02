@@ -1,4 +1,5 @@
 from tkinter import Tk, Label, Entry, Button, Frame, Toplevel
+from cadastrar import Cadastro
 
 class Login:
     def __init__(self):

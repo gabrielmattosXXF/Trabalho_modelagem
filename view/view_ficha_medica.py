@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Entry, Button, Frame, Toplevel, StringVar, OptionMenu, Text, Scrollbar, ttk
+from tkinter import Tk, Label, Entry, Button, Frame, StringVar, ttk, Text, Scrollbar
 
 class Login:
     def __init__(self):
@@ -35,46 +35,50 @@ class Login:
 
         Label(frame, text="Ficha médica", font=("Helvetica", 16), bg=cor_de_fundo).grid(row=0, column=0, columnspan=2, pady=10)
 
-        label_sexo = Label(frame, text="Sexo:", font=fonte, bg=cor_de_fundo)
-        label_sexo.grid(row=1, column=0, pady=5)
+        Label(frame, text="Nome:", font=fonte, bg=cor_de_fundo).grid(row=1, column=0, pady=5)
+        Label(frame, text="Nome do caboco", font=fonte, bg=cor_de_fundo).grid(row=1, column=1, pady=5)
+
+        Label(frame, text="Idade:", font=fonte, bg=cor_de_fundo).grid(row=2, column=0, pady=5)
+        Label(frame, text="Idade do caboco", font=fonte, bg=cor_de_fundo).grid(row=2, column=1, pady=5)
+
+        Label(frame, text="Sexo:", font=fonte, bg=cor_de_fundo).grid(row=3, column=0, pady=5)
         opcoes_cbx = ["Masculino", "Feminino", "Outro"]
         self.cbx_var = StringVar()
         self.cbx_var.set(opcoes_cbx[0])
         cbx_combobox = ttk.Combobox(frame, textvariable=self.cbx_var, values=opcoes_cbx, font=fonte, state="readonly")
-        cbx_combobox.grid(row=5, column=1, pady=5)
+        cbx_combobox.grid(row=3, column=1, pady=5)
         self.login_entries.append(cbx_combobox)
-        self.login_entries[0].grid(row=1, column=1, pady=5)
 
-        Label(frame, text="Altura:", font=fonte, bg=cor_de_fundo).grid(row=2, column=0, pady=5)
+        Label(frame, text="Altura:", font=fonte, bg=cor_de_fundo).grid(row=4, column=0, pady=5)
         self.login_entries.append(Entry(frame, font=fonte))
-        self.login_entries[1].grid(row=2, column=1, pady=5)
+        self.login_entries[1].grid(row=4, column=1, pady=5)
 
-        Label(frame, text="Massa Branca:", font=fonte, bg=cor_de_fundo).grid(row=3, column=0, pady=5)
+        Label(frame, text="Massa Branca:", font=fonte, bg=cor_de_fundo).grid(row=5, column=0, pady=5)
         self.login_entries.append(Entry(frame, font=fonte))
-        self.login_entries[2].grid(row=3, column=1, pady=5)
+        self.login_entries[2].grid(row=5, column=1, pady=5)
 
-        Label(frame, text="Percentual de Gordura:", font=fonte, bg=cor_de_fundo).grid(row=4, column=0, pady=5)
+        Label(frame, text="Percentual de Gordura:", font=fonte, bg=cor_de_fundo).grid(row=6, column=0, pady=5)
         self.login_entries.append(Entry(frame, font=fonte))
-        self.login_entries[3].grid(row=4, column=1, pady=5)
+        self.login_entries[3].grid(row=6, column=1, pady=5)
 
-        Label(frame, text="Problemas de Saúde:", font=fonte, bg=cor_de_fundo).grid(row=5, column=0, pady=5)
+        Label(frame, text="Problemas de Saúde:", font=fonte, bg=cor_de_fundo).grid(row=7, column=0, pady=5)
         text_problemas_saude = Text(frame, height=4, width=30, font=fonte)
-        text_problemas_saude.grid(row=5, column=1, pady=5)
+        text_problemas_saude.grid(row=7, column=1, pady=5)
         scrollbar_problemas = Scrollbar(frame, command=text_problemas_saude.yview)
-        scrollbar_problemas.grid(row=5, column=2, sticky="nsew")
+        scrollbar_problemas.grid(row=7, column=2, sticky="nsew")
         text_problemas_saude.config(yscrollcommand=scrollbar_problemas.set)
         self.login_entries.append(text_problemas_saude)
 
-        Label(frame, text="Medicamentos em Uso:", font=fonte, bg=cor_de_fundo).grid(row=6, column=0, pady=5)
+        Label(frame, text="Medicamentos em Uso:", font=fonte, bg=cor_de_fundo).grid(row=8, column=0, pady=5)
         text_medicamentos = Text(frame, height=4, width=30, font=fonte)
-        text_medicamentos.grid(row=6, column=1, pady=5)
+        text_medicamentos.grid(row=8, column=1, pady=5)
         scrollbar_medicamentos = Scrollbar(frame, command=text_medicamentos.yview)
-        scrollbar_medicamentos.grid(row=6, column=2, sticky="nsew")
+        scrollbar_medicamentos.grid(row=8, column=2, sticky="nsew")
         text_medicamentos.config(yscrollcommand=scrollbar_medicamentos.set)
         self.login_entries.append(text_medicamentos)
 
         botao_salvar = Button(frame, text="Salvar", command=self.salvar_ficha, font=fonte, bg="#4CAF50", fg="white")
-        botao_salvar.grid(row=7, column=0, columnspan=2, pady=10)
+        botao_salvar.grid(row=9, column=0, columnspan=2, pady=10)
 
     def salvar_ficha(self):
         # Aqui você pode adicionar a lógica para salvar ou processar as informações da ficha médica

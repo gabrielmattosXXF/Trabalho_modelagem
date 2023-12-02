@@ -1,5 +1,4 @@
 from tkinter import Tk, Label, Entry, Button, Frame, Toplevel
-from Cadastro import Cadastro
 
 class TelaInicialAluno:
     def __init__(self,aluno):
