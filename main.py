@@ -1,6 +1,8 @@
 import json
 from tkinter import Tk, Label, Entry, Button, Frame, Toplevel, messagebox
 from cadastrar import Cadastro
+from view_inicio_aluno import view_inicio_aluno
+from view_inicio_personal import view_inicio_personal
 
 
 class Login:
@@ -74,13 +76,13 @@ class Login:
             return
 
         # Verifica se o usuário existe nos arquivos JSON correspondentes
-        aluno_encontrado = self.verificar_usuario("aluno.json", email, senha)
-        personal_encontrado = self.verificar_usuario("personal.json", email, senha)
+        aluno_id = self.verificar_usuario("aluno.json", email, senha)
+        personal_id = self.verificar_usuario("personal.json", email, senha)
 
-        if aluno_encontrado or personal_encontrado:
-            # Exibe uma mensagem de sucesso e os detalhes do usuário
-            tipo_usuario = "Aluno" if aluno_encontrado else "Personal Trainer"
-            messagebox.showinfo("Login Realizado", f"Bem-vindo, {email}!\nTipo de Usuário: {tipo_usuario}")
+        if aluno_id != 0:
+            self.show_aluno_screen(aluno_id)
+        elif personal_id != 0:
+            self.show_personal_screen(personal_id)
         else:
             # Exibe uma mensagem de erro se o usuário não for encontrado
             messagebox.showerror("Erro", "Usuário não encontrado ou senha incorreta.")
@@ -95,9 +97,23 @@ class Login:
         # Procura o usuário com o email e senha fornecidos
         for usuario in dados.get("usuarios", []):
             if usuario["email"] == email and usuario["senha"] == senha:
-                return True  # Retorna True se o usuário for encontrado
+                return usuario["id"]  # Retorna True se o usuário for encontrado
 
-        return False  # Retorna False se o usuário não for encontrado
+        return 0  # Retorna False se o usuário não for encontrado
 
+    def show_aluno_screen(self,aluno_id):
+        # Esconde a tela de login
+        self.root.withdraw()
+
+        # Cria uma nova janela para a tela de cadastro
+        aluno_window = Toplevel(self.root)
+        view_inicio_aluno(aluno_window, self.root, aluno_id)  # Passa o Toplevel como argumento
+    def show_personal_screen(self, personal_id):
+        # Esconde a tela de login
+        self.root.withdraw()
+
+        # Cria uma nova janela para a tela de cadastro
+        personal_window = Toplevel(self.root)
+        view_inicio_personal(personal_window, self.root, personal_id)  # Passa o Toplevel como argumento
 
 Login()

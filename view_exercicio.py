@@ -1,9 +1,11 @@
 from tkinter import Tk, Label, Entry, Button, Frame, StringVar, OptionMenu, Text, Scrollbar, ttk
+from Ficha import Ficha
 
-class ExercicioApp:
+class view_exercicio:
     def __init__(self):
         self.root = Tk()
         self.exercicio_entries = []
+        self.ficha = Ficha("Minha ficha")
         self.screen()
         self.create_widgets()
         self.root.mainloop()
@@ -33,7 +35,7 @@ class ExercicioApp:
         frame = Frame(self.root, bg=cor_de_fundo)
         frame.pack(pady=20)
 
-        Label(frame, text="Exercício", font=("Helvetica", 16), bg=cor_de_fundo).grid(row=0, column=0, columnspan=2, pady=10)
+        Label(frame, text="Adicionar Exercício", font=("Helvetica", 16), bg=cor_de_fundo).grid(row=0, column=0, columnspan=2, pady=10)
 
         Label(frame, text="Nome:", font=fonte, bg=cor_de_fundo).grid(row=1, column=0, pady=5)
         self.exercicio_entries.append(Entry(frame, font=fonte))
@@ -63,15 +65,38 @@ class ExercicioApp:
         text_comentario.config(yscrollcommand=scrollbar_comentario.set)
         self.exercicio_entries.append(text_comentario)
 
-        botao_salvar = Button(frame, text="Registrar", command=self.salvar_exercicio, font=fonte, bg="#4CAF50", fg="white")
+        botao_salvar = Button(frame, text="Adicionar", command=self.salvar_exercicio, font=fonte, bg="#4CAF50", fg="white")
         botao_salvar.grid(row=6, column=0, columnspan=2, pady=10)
 
-    def salvar_exercicio(self):
-        print("Informações salvas:")
-        print("Nome:", self.exercicio_entries[0].get())
-        print("Carga:", self.exercicio_entries[1].get())
-        print("Repetições:", self.exercicio_entries[2].get())
-        print("Série:", self.exercicio_entries[3].get())
-        print("Comentário:", self.exercicio_entries[4].get("1.0", "end-1c"))
+    # def salvar_exercicio(self):
+    #     print("Informações salvas:")
+    #     print("Nome:", self.exercicio_entries[0].get())
+    #     print("Carga:", self.exercicio_entries[1].get())
+    #     print("Repetições:", self.exercicio_entries[2].get())
+    #     print("Série:", self.exercicio_entries[3].get())
+    #     print("Comentário:", self.exercicio_entries[4].get("1.0", "end-1c"))
 
-ExercicioApp()
+    def salvar_exercicio(self):
+        nome = self.exercicio_entries[0].get()
+        carga = self.exercicio_entries[1].get()
+        repeticoes = self.exercicio_entries[2].get()
+        serie = self.exercicio_entries[3].get()
+        comentario = self.exercicio_entries[4].get("1.0", "end-1c")
+
+        # Use the Ficha class to add the exercise
+        self.ficha.adicionar_exercicio(nome, carga, repeticoes, serie, comentario)
+
+        print("Informações salvas:")
+        print("Nome:", nome)
+        print("Carga:", carga)
+        print("Repetições:", repeticoes)
+        print("Série:", serie)
+        print("Comentário:", comentario)
+        print("Ficha JSON:")
+    
+        print(self.ficha.to_json())
+    
+    #ficha = Ficha("Minha Ficha")
+
+
+view_exercicio()

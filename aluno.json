@@ -1,0 +1,12 @@
+{
+    "usuarios": [
+        {
+            "id": 1,
+            "nome": "123",
+            "email": "123",
+            "senha": "123",
+            "data_nascimento": "123",
+            "tipo_usuario": "Aluno"
+        }
+    ]
+}
