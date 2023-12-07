@@ -80,20 +80,20 @@ class view_treino:
         cor_de_fundo = "#f0f0f0"
         fonte = ("Helvetica", 12)
 
-        Label(self.root, text="Escolha seu Treino", font=("Helvetica", 16), bg=cor_de_fundo).pack(pady=20)
+        Label(self.root, text="Escolha sua ficha", font=("Helvetica", 16), bg=cor_de_fundo).pack(pady=20)
 
         # Simulando 3 fichas com exercícios preenchidos
-        ficha1 = Ficha("Ficha 1")
+        ficha1 = Ficha("Peito e triceps")
         ficha1.adicionar_exercicio("Supino", 50, 10, 3, "Comentário 1")
         ficha1.adicionar_exercicio("Rosca direta", 10, 10, 3, "Comentário 2")
         ficha1.adicionar_exercicio("Tríceps", 10, 10, 3, "Comentário 3")
 
-        ficha2 = Ficha("Ficha 2")
+        ficha2 = Ficha("Costas e biceps")
         ficha2.adicionar_exercicio("Agachamento", 80, 8, 4, "Comentário 4")
         ficha2.adicionar_exercicio("Levantamento Terra", 100, 6, 3, "Comentário 5")
         ficha2.adicionar_exercicio("Flexão", 0, 15, 3, "Comentário 6")
 
-        ficha3 = Ficha("Ficha 3")
+        ficha3 = Ficha("Perna e ombro")
         ficha3.adicionar_exercicio("Corrida", 0, 0, 1, "Comentário 7")
         ficha3.adicionar_exercicio("Natação", 0, 0, 1, "Comentário 8")
         ficha3.adicionar_exercicio("Ciclismo", 0, 0, 1, "Comentário 9")

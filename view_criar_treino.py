@@ -136,4 +136,4 @@ class view_criar_treino:
         if len(texto) == 2 or len(texto) == 5:
             self.cadastro_entries[3].insert(tk.END, '/')
 
-view_criar_treino()
+# view_criar_treino()

@@ -92,9 +92,13 @@ class view_inicio_personal:
         self.root_pai.deiconify()
 
     def funcao1(self):
-        print("func1")
+        from view_criar_treino import view_criar_treino
+        # view_criar_treino(tk.Toplevel(self.root), self.root, self.user_id)
+        view_criar_treino(tk.Toplevel(self.root), self.root, self.user_id)
     def funcao2(self):
-        print("func2")
+        from view_visualizar_alunos import view_visualizar_alunos
+        # view_vizualizar_alunos(tk.Toplevel(self.root), self.root, self.user_id)
+        view_visualizar_alunos(self.personal)
     def funcao3(self):
         print("func3")
     def funcao4(self):

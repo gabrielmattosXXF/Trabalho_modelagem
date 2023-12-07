@@ -92,18 +92,21 @@ class view_inicio_aluno:
         self.root_pai.deiconify()
 
     def funcao1(self):
-        print("func1")
+        from view_treino import view_treino
+        view_treino()
     def funcao2(self):
-        print("func2")
+        from view_treino import view_treino
+        view_treino()
     def funcao3(self):
         print("func3")
     def funcao4(self):
         print("func4")
     def funcao5(self):
         print("func5")
-
     def funcao6(self):
-        print("func6")
+        from view_ficha_medica import view_ficha_medica
+        view_ficha_medica()
+
     def buscar_usuarios_por_id(self, tipo_alvo, id_alvo):
             
         from main import vet_usuarios
