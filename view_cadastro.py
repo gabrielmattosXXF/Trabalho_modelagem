@@ -4,7 +4,8 @@ import json
 
 
 class Cadastro:
-    def __init__(self, parent, root_pai):
+    def __init__(self, parent, root_pai, vet_usuarios):
+        self.vet_usuarios = vet_usuarios
         self.root = parent
         self.root_pai = root_pai
         self.cbx_var = None
@@ -87,6 +88,7 @@ class Cadastro:
         self.root.destroy()
         self.root_pai.deiconify()
 
+
     def handle_cadastrar(self):
         # Obtém os dados do formulário
         nome = self.cadastro_entries[0].get()
@@ -100,64 +102,44 @@ class Cadastro:
             messagebox.showerror("Erro", "Por favor, preencha todos os campos.")
             return
 
-        # Obtém o último ID salvo no arquivo JSON correspondente
+        # Obtém o último ID no vetor correspondente
         if tipo_usuario == "Aluno":
-            ultimo_id = self.obter_ultimo_id("aluno")
+            ultimo_id = self.obter_ultimo_id_vetor("aluno")
         else:
-            ultimo_id = self.obter_ultimo_id("personal")
+            ultimo_id = self.obter_ultimo_id_vetor("personal")
 
         # Incrementa o contador de ID
         id_usuario = ultimo_id + 1
 
         # Cria um dicionário com os dados do usuário
-        novo_usuario = {
-            "id": id_usuario,
-            "nome": nome,
-            "email": email,
-            "senha": senha,
-            "data_nascimento": data_nascimento,
-            "tipo_usuario": tipo_usuario
-        }
+        # novo_usuario = {
+        #     "id": id_usuario,
+        #     "nome": nome,
+        #     "email": email,
+        #     "senha": senha,
+        #     "data_nascimento": data_nascimento,
+        #     "tipo_usuario": tipo_usuario
+        # }
 
-        # Adiciona o usuário ao arquivo JSON correspondente
-        if tipo_usuario == "Aluno":
-            self.adicionar_usuario("aluno.json", novo_usuario)
-        elif tipo_usuario == "Personal trainer":
-            self.adicionar_usuario("personal.json", novo_usuario)
+        # Adiciona o usuário ao vetor correspondente
+        from Usuario import Usuario
+        self.vet_usuarios.append(Usuario(nome, email, senha, 0, data_nascimento, 0, id_usuario, tipo_usuario))
 
         # Exibe uma mensagem de sucesso
         messagebox.showinfo("Cadastro Realizado", "Cadastro realizado com sucesso!")
 
-    def obter_ultimo_id(self, tipo_usuario):
-        # Tenta carregar os dados do arquivo JSON correspondente
-        try:
-            with open(f"{tipo_usuario.lower()}.json", 'r') as arquivo:
-                dados = json.load(arquivo)
-        except FileNotFoundError:
-            return 0  # Retorna 0 se o arquivo não existir
+    def obter_ultimo_id_vetor(self, tipo_usuario):
+        # Obtém o último ID no vetor correspondente
+        ultimo_id = 0
+        if len(self.vet_usuarios) == 0:
+            return ultimo_id
+        
+        for user in self.vet_usuarios:
+            if user["tipo_usuario"] == tipo_usuario and user["id"] > ultimo_id :
+                ultimo_id = user["id"]
+        return ultimo_id
 
-        # Verifica se há usuários no arquivo
-        if "usuarios" in dados and dados["usuarios"]:
-            # Ordena os usuários pelo ID em ordem decrescente e retorna o ID do primeiro usuário
-            usuarios_ordenados = sorted(dados["usuarios"], key=lambda x: x["id"], reverse=True)
-            return usuarios_ordenados[0]["id"]
-        else:
-            return 0  # Retorna 0 se não houver usuários no arquivo
-
-    def adicionar_usuario(self, nome_arquivo, usuario):
-        # Carrega os dados existentes do arquivo JSON
-        try:
-            with open(nome_arquivo, 'r') as arquivo:
-                dados = json.load(arquivo)
-        except FileNotFoundError:
-            dados = {"usuarios": []}
-
-        # Adiciona o novo usuário aos dados existentes
-        dados["usuarios"].append(usuario)
-
-        # Salva os dados atualizados no arquivo JSON
-        with open(nome_arquivo, 'w') as arquivo:
-            json.dump(dados, arquivo, indent=4)
+        
 
     def formatar_como_data(self, event):
         texto = self.cadastro_entries[3].get()

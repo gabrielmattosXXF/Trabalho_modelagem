@@ -3,6 +3,7 @@ from tkinter import Label, Entry, Button, Frame, StringVar, ttk, messagebox
 import tkinter as tk
 import json
 from Usuario import Usuario
+from Personal import Personal
 
 class view_inicio_personal:
     def __init__(self, parent, root_pai, user_id):
@@ -27,7 +28,7 @@ class view_inicio_personal:
         y_pos = (altura_tela - altura_janela) // 2
 
         self.root.geometry(f"{largura_janela}x{altura_janela}+{x_pos}+{y_pos}")
-        self.root.title("Aluno")
+        self.root.title("Personal")
 
         self.root.configure(bg=cor_de_fundo)
 
@@ -39,7 +40,9 @@ class view_inicio_personal:
         frame_cabecalho = Frame(self.root, bg=cor_de_fundo)
         frame_cabecalho.grid(row=0, column=0, sticky="ew", pady=10)
 
-        Label(frame_cabecalho, text=f"Bem-vindo, {self.personal.get_nome()}!", font=("Helvetica", 16), bg=cor_de_fundo).grid(
+        # Label(frame_cabecalho, text=f"Bem-vindo, {self.personal.get_nome()}!", font=("Helvetica", 16), bg=cor_de_fundo).grid(
+        #     row=0, column=0, padx=20, sticky="w")
+        Label(frame_cabecalho, text=f"Bem-vindo, GeanCarlo!", font=("Helvetica", 16), bg=cor_de_fundo).grid(
             row=0, column=0, padx=20, sticky="w")
 
         # Empty label to push the "Deslogar" button to the right
@@ -98,40 +101,27 @@ class view_inicio_personal:
         print("func4")
     def funcao5(self):
         print("func5")
-
     def funcao6(self):
         print("func6")
-    def buscar_usuarios_por_id(self, arquivo_json, id_alvo):
-        try:
-            # Abre o arquivo JSON
-            with open(arquivo_json, 'r') as file:
-                # Carrega os dados do JSON
-                dados = json.load(file)
 
-                # Procura o usuário com o ID correspondente
-                usuario_alvo = next((usuario for usuario in dados['usuarios'] if usuario['id'] == id_alvo), None)
+    def buscar_usuarios_por_id(self, tipo_alvo, id_alvo):
+            
+        from main import vet_usuarios
+        for user in vet_usuarios:
+            if getattr(user, "id") == id_alvo and getattr(user, "tipo_usuario") == tipo_alvo:
+                data_nasc_obj = datetime.strptime(getattr(user, "idade"), "%d/%m/%Y")
 
-                if usuario_alvo:
-                    # Retorna o usuário encontrado=
+                # Obtém a data atual
+                data_atual = datetime.now()
 
-                    data_nasc_obj = datetime.strptime(usuario_alvo["data_nascimento"], "%d/%m/%Y")
+                # Calcula a diferença em anos
+                idade = data_atual.year - data_nasc_obj.year - (
+                            (data_atual.month, data_atual.day) < (data_nasc_obj.month, data_nasc_obj.day))
+                user.idade = idade
+                return Personal(user, None, None)
+            else:
+                print(f"Usuário com ID {id_alvo} não encontrado.")
+                return None
+        
 
-                    # Obtém a data atual
-                    data_atual = datetime.now()
-
-                    # Calcula a diferença em anos
-                    idade = data_atual.year - data_nasc_obj.year - (
-                                (data_atual.month, data_atual.day) < (data_nasc_obj.month, data_nasc_obj.day))
-
-                    user = Usuario(usuario_alvo['nome'],usuario_alvo['email'], usuario_alvo['senha'], usuario_alvo['cpf'], idade, usuario_alvo['telefone'])
-                    return user
-                else:
-                    print(f"Usuário com ID {id_alvo} não encontrado.")
-                    return None
-
-        except FileNotFoundError:
-            print(f"Arquivo {arquivo_json} não encontrado.")
-            return None
-        except json.JSONDecodeError:
-            print(f"Erro ao decodificar o JSON no arquivo {arquivo_json}.")
-            return None
+# view_inicio_personal(tk.Tk(), None, 1)

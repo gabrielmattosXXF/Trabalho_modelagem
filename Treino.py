@@ -1,5 +1,5 @@
-import Exercicio
-import Ficha
+from Exercicio import Exercicio
+from Ficha import Ficha
 
 class Treino:
     def __init__(self, dataInicio, dataFinal):
@@ -12,7 +12,7 @@ class Treino:
         nova_ficha = Ficha(nome_ficha)
         for nome_exercicio, carga, repeticoes, series, comentario in exercicios:
             novo_exercicio = Exercicio(nome_exercicio, carga, repeticoes, series, comentario)
-            nova_ficha.adicionaExercicio(novo_exercicio)
+            nova_ficha.adicionar_exercicio(novo_exercicio)
         self.fichas[nome_ficha] = nova_ficha
 
     def removeFicha(self, nome_ficha):

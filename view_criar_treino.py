@@ -53,24 +53,25 @@ class view_criar_treino:
         content_frame = tk.Frame(canvas)
         canvas.create_window((0, 0), window=content_frame, anchor=tk.NW)
 
-        i=0
+        i = 0
         Label(content_frame, text="Criar treino", font=("Helvetica", 16), bg=cor_de_fundo).grid(row=0, column=0, columnspan=2, pady=10)
-        i+=1
+        i += 1
 
         Label(content_frame, text="Nome aluno:", font=fonte, bg=cor_de_fundo).grid(row=i, column=0, pady=5)
         Label(content_frame, text="Nome do caboco", font=fonte, bg=cor_de_fundo).grid(row=i, column=1, pady=5)
         i+=1
 
-        Label(frame, text="Data de início:", font=fonte, bg=cor_de_fundo).grid(row=i, column=0, pady=5)
-        self.criar_treinos_entries.append(Entry(frame, font=fonte))
+        Label(content_frame, text="Data de início:", font=fonte, bg=cor_de_fundo).grid(row=i, column=0, pady=5)
+        self.criar_treinos_entries.append(Entry(content_frame, font=fonte))
         self.criar_treinos_entries[-1].bind("<KeyRelease>", self.formatar_como_data)
         self.criar_treinos_entries[-1].grid(row=i, column=1, pady=5)
         i+=1
 
-        Label(frame, text="Data de finalização:", font=fonte, bg=cor_de_fundo).grid(row=i, column=0, pady=5)
-        self.criar_treinos_entries.append(Entry(frame, font=fonte))
+        Label(content_frame, text="Data de finalização:", font=fonte, bg=cor_de_fundo).grid(row=i, column=0, pady=5)
+        self.criar_treinos_entries.append(Entry(content_frame, font=fonte))
         self.criar_treinos_entries[-1].bind("<KeyRelease>", self.formatar_como_data)
         self.criar_treinos_entries[-1].grid(row=i, column=1, pady=5)
+        i+=1
 
         Label(content_frame, text="Quantidade de fichas:", font=fonte, bg=cor_de_fundo).grid(row=i, column=0, pady=5)
         opcoes_cbx = ["2", "3", "4"]
@@ -78,34 +79,34 @@ class view_criar_treino:
         self.cbx_var.set(opcoes_cbx[0])
         cbx_combobox = ttk.Combobox(content_frame, textvariable=self.cbx_var, values=opcoes_cbx, font=fonte, state="readonly")
         cbx_combobox.grid(row=i, column=1, pady=5)
-        self.login_entries.append(cbx_combobox)
-        i+=1
-
-        botao_quant = Button(content_frame, text="Criar treinos", command=criar_fichas_def(cbx_combobox, i+1), font=fonte, bg="#4CAF50", fg="white")
-        botao_quant.grid(row=i, column=0, columnspan=2, pady=10)
+        self.criar_treinos_entries.append(cbx_combobox)
         i+=1
 
         vet_fichas = []
         vet_buttons = []
         def criar_fichas_def(cbx_combobox, i):
             # vet_button = [Button(content_frame, text="Criar ficha "+str(quant+1), command=self.salvar_ficha, font=fonte, bg="#4CAF50", fg="white") for quant in range(0, cbx_combobox)]
-            for quant in range(0, cbx_combobox):
+            for quant in range(0, int(cbx_combobox.get())):
                 # ficha = view_criar_ficha()
                 # vet_fichas.append(ficha)
                 print("ficha")
 
                 # Button(content_frame, text="Criar ficha "+str(quant+1), command=self.salvar_ficha, font=fonte, bg="#4CAF50", fg="white").grid(row=13, column=0, columnspan=2, pady=10)
 
-            for quant in range(0, cbx_combobox):
+            for quant in range(0, int(cbx_combobox.get())):
                 vet_buttons.append(Button(content_frame, text="Editar ficha "+str(quant+1), command=self.editar_ficha(vet_fichas, quant), font=fonte, bg="#4CAF50", fg="white"))
                 vet_buttons[quant].grid(row=i, column=0, columnspan=2, pady=10)
                 i+=1
 
-        i+=cbx_combobox
+        botao_quant = Button(content_frame, text="Criar fichas", command=criar_fichas_def(cbx_combobox, i+1), font=fonte, bg="#4CAF50", fg="white")
+        botao_quant.grid(row=i, column=0, columnspan=2, pady=10)
+        i+=1
+
+        i+=int(cbx_combobox.get())
 
         
 
-        botao_salvar = Button(content_frame, text="Salvar treino", command=self.salvar_ficha, font=fonte, bg="#4CAF50", fg="white")
+        botao_salvar = Button(content_frame, text="Salvar treino", command=self.editar_ficha, font=fonte, bg="#4CAF50", fg="white")
         botao_salvar.grid(row=13, column=0, columnspan=2, pady=10)
         i+=1
 

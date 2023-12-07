@@ -1,8 +1,8 @@
 import Usuario
 
 class Personal(Usuario):
-    def __init__(self, nome, email, senha, CPF, idade, telefone):
-        super().__init__(nome, email, senha, CPF, idade, telefone)
+    def __init__(self, usuario_pai):
+        super().__init__(usuario_pai.nome, usuario_pai.email, usuario_pai.senha, usuario_pai.CPF, usuario_pai.idade, usuario_pai.telefone, usuario_pai.id_usuario, usuario_pai.tipo_usuario)
         self.alunos = {}
 
     def vincularAluno(self, aluno):

@@ -1,11 +1,13 @@
 class Usuario:
-    def __init__(self, nome, email, senha, CPF, idade, telefone):
+    def __init__(self, nome, email, senha, CPF, idade, telefone, id, tipo_usuario):
         self.nome = nome
         self.email = email
         self.senha = senha
         self.CPF = CPF
         self.idade = idade
         self.telefone = telefone
+        self.id = id
+        self.tipo_usuario = tipo_usuario
 
     def get_nome(self):
         return self.nome

@@ -1,8 +1,8 @@
-import Usuario
+from Usuario import Usuario
 
 class Aluno(Usuario):
-    def __init__(self,Personal,treino):
-        super().__init__(Personal,treino)
+    def __init__(self, usuario_pai, Personal,treino):
+        super().__init__(usuario_pai.nome, usuario_pai.email, usuario_pai.senha, usuario_pai.CPF, usuario_pai.idade, usuario_pai.telefone, usuario_pai.id_usuario, usuario_pai.tipo_usuario)
         self.Personal = None
         self.treino = treino
         self.FichaMedica = None
